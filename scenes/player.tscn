@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://dpwb3c53ptyq1"]
+
+[ext_resource type="Script" uid="uid://k226f30esmc2" path="res://sim/Player/PlayerLocomotion.gd" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://dminbvgxen17q" path="res://sim/Player/PlayerInput.gd" id="2_dqkch"]
+[ext_resource type="Material" uid="uid://dhjwfp1jc8wfp" path="res://red.tres" id="2_g2els"]
+[ext_resource type="Script" uid="uid://vqbbvavpopv1" path="res://view/Player/PlayerView_ModelRotation.gd" id="3_qlg0r"]
+[ext_resource type="Script" uid="uid://5e7tqwfjswvj" path="res://view/Player/PlayerCameraLook.gd" id="4_qlg0r"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3vyb7"]
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera_rig", "input_source")]
+script = ExtResource("1_3vyb7")
+camera_rig = NodePath("CameraRig")
+input_source = NodePath("PlayerInput")
+
+[node name="PlayerInput" type="Node" parent="."]
+script = ExtResource("2_dqkch")
+
+[node name="View_ModelRotation" type="Node" parent="." node_paths=PackedStringArray("locomotion", "model_root")]
+script = ExtResource("3_qlg0r")
+locomotion = NodePath("..")
+model_root = NodePath("../MeshInstance3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_u8vuu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_3vyb7")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05090332, 0.46871948, -0.44555664)
+material_override = ExtResource("2_g2els")
+size = Vector3(0.6706543, 0.3661499, 0.46826172)
+
+[node name="CameraRig" type="Node3D" parent="." node_paths=PackedStringArray("input_source")]
+script = ExtResource("4_qlg0r")
+input_source = NodePath("../PlayerInput")
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig"]
+transform = Transform3D(1, 0, 0, 0, 0.7071067, 0.7071067, 0, -0.7071067, 0.7071067, 0, 8, 8)
