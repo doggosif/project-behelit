@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b4cnhnxud5lxp"]
+
+[ext_resource type="Texture2D" uid="uid://e0ta2c2aqly6" path="res://Temp Assets/KayKit_Adventurers_2.0_FREE/Textures/knight_texture.png" id="1_hpkgl"]
+
+[resource]
+resource_name = "knight"
+cull_mode = 2
+albedo_texture = ExtResource("1_hpkgl")
+roughness = 0.5

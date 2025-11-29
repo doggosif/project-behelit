@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://cogrlnjc4f3b1"]
+
+[ext_resource type="Script" uid="uid://5e7tqwfjswvj" path="res://Scripts/PlayerCameraLook.gd" id="1_efyj7"]
+[ext_resource type="Script" uid="uid://b2lia83hu25ps" path="res://Scripts/camera.gd" id="2_qy8q0"]
+[ext_resource type="Shader" uid="uid://brc4s0fvysdns" path="res://shaders/pixelart_stylizer.gdshader" id="3_c28dg"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_57txa"]
+size = Vector2(10, 10)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cvmbd"]
+render_priority = 0
+shader = ExtResource("3_c28dg")
+shader_parameter/shadows_enabled = true
+shader_parameter/highlights_enabled = true
+shader_parameter/shadow_strength = 0.4
+shader_parameter/highlight_strength = 0.1
+shader_parameter/highlight_color = Color(0.49354547, 0.49354553, 0.49354553, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+
+[node name="CameraRig" type="Node3D" node_paths=PackedStringArray("input_source")]
+script = ExtResource("1_efyj7")
+input_source = NodePath("")
+
+[node name="Pixel Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 8, 8)
+current = true
+size = 4.68493
+near = 0.001
+script = ExtResource("2_qy8q0")
+
+[node name="PixelFilter" type="MeshInstance3D" parent="Pixel Camera"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.873369)
+visible = false
+mesh = SubResource("PlaneMesh_57txa")
+surface_material_override/0 = SubResource("ShaderMaterial_cvmbd")

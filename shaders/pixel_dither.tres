@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://c8i8u3aoxvttm"]
+
+[ext_resource type="Shader" uid="uid://qa6yrg8mt0d" path="res://shaders/pixel_dither.gdshader" id="1_4nruc"]
+[ext_resource type="Texture2D" uid="uid://c7hjfxurdqbkm" path="res://palettes/ink-1x.png" id="2_r3vnv"]
+
+[resource]
+shader = ExtResource("1_4nruc")
+shader_parameter/shader_enabled = true
+shader_parameter/palette = ExtResource("2_r3vnv")
+shader_parameter/dithering = true
+shader_parameter/dithering_size = 2
+shader_parameter/resolution_scale = 2
+shader_parameter/quantization_level = 16
