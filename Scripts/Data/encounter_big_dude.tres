@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EncounterData" load_steps=5 format=3 uid="uid://ds33a2h283m60"]
+
+[ext_resource type="PackedScene" uid="uid://dkyys7f1x4pgx" path="res://scenes/Battlefield_Dungeon.tscn" id="1_e2pba"]
+[ext_resource type="Script" uid="uid://cwrhyv1a4fmol" path="res://Scripts/Data/CombatantData.gd" id="1_rwtf1"]
+[ext_resource type="Script" uid="uid://c52l8trhcmya8" path="res://Scripts/Data/EncounterData.gd" id="2_ujscr"]
+[ext_resource type="Resource" uid="uid://bolaxdrpmj7hd" path="res://Scripts/Data/enemy_combatant.tres" id="3_yrf28"]
+
+[resource]
+script = ExtResource("2_ujscr")
+enemies = Array[ExtResource("1_rwtf1")]([ExtResource("3_yrf28"), ExtResource("3_yrf28")])
+battlefield_scene = ExtResource("1_e2pba")
+can_flee = false
+metadata/_custom_type_script = "uid://c52l8trhcmya8"

@@ -1,0 +1,98 @@
+[gd_scene load_steps=8 format=3 uid="uid://53oqojpirrc8"]
+
+[ext_resource type="Script" uid="uid://k226f30esmc2" path="res://Scripts/Player/PlayerLocomotion.gd" id="1_qu4a1"]
+[ext_resource type="PackedScene" uid="uid://cdlxddkp3om58" path="res://scenes/temp_knight.tscn" id="2_qu4a1"]
+[ext_resource type="Script" uid="uid://vqbbvavpopv1" path="res://Scripts/Player/PlayerView_ModelRotation.gd" id="3_cw2d6"]
+[ext_resource type="Script" uid="uid://bivvfejah5ohk" path="res://Scripts/PlayerInteraction.gd" id="5_70d11"]
+[ext_resource type="Script" uid="uid://5e7tqwfjswvj" path="res://Scripts/Player/PlayerCameraLook.gd" id="5_bruh7"]
+
+[sub_resource type="GDScript" id="GDScript_qu4a1"]
+script/source = "class_name PlayerInput
+extends Node
+
+var move_axis: Vector2 = Vector2.ZERO
+var mouse_delta: Vector2 = Vector2.ZERO
+var snap_left_pressed := false
+var snap_right_pressed:= false
+var interact_pressed := false
+
+func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func _process(_delta: float) -> void:
+	# wasd movement
+	move_axis = Input.get_vector(
+		\"move_left\",
+		\"move_right\",
+		\"move_back\",
+        \"move_forward\"
+	)
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		var m := event as InputEventMouseMotion
+		mouse_delta += m.relative
+
+	if event.is_action_pressed(\"camera_rotate_left\"):
+		snap_left_pressed = true
+	if event.is_action_pressed(\"camera_rotate_right\"):
+		snap_right_pressed = true
+	
+	if Input.is_action_just_pressed(\"interact\"):
+		interact_pressed = true
+
+	if event.is_action_pressed(\"ui_cancel\"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+	if event.is_action_pressed(\"ui_accept\"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera_rig", "input_source")]
+transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
+floor_constant_speed = true
+floor_max_angle = 1.5707964
+floor_snap_length = 1.0
+script = ExtResource("1_qu4a1")
+camera_rig = NodePath("CameraRig")
+input_source = NodePath("PlayerInput")
+
+[node name="Knight" parent="." instance=ExtResource("2_qu4a1")]
+
+[node name="Animation Logic" parent="Knight" index="3" node_paths=PackedStringArray("locomotion", "anim_tree")]
+locomotion = NodePath("../..")
+anim_tree = NodePath("../AnimationTree")
+
+[node name="InteractRay" type="RayCast3D" parent="Knight"]
+transform = Transform3D(1, 1.509958e-07, 1.509958e-07, -1.509958e-07, -4.371139e-08, 1, 1.509958e-07, -1, -4.3711367e-08, 9.595711e-09, 1, -0.06354952)
+collide_with_areas = true
+
+[node name="PlayerInput" type="Node" parent="."]
+script = SubResource("GDScript_qu4a1")
+
+[node name="View_ModelRotation" type="Node" parent="." node_paths=PackedStringArray("locomotion", "model_root")]
+script = ExtResource("3_cw2d6")
+locomotion = NodePath("..")
+model_root = NodePath("../Knight")
+
+[node name="Interaction" type="Node3D" parent="." node_paths=PackedStringArray("input_source", "interaction_ray")]
+script = ExtResource("5_70d11")
+input_source = NodePath("../PlayerInput")
+interaction_ray = NodePath("../Knight/InteractRay")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0055033, 0)
+shape = SubResource("CapsuleShape3D_u8vuu")
+
+[node name="CameraRig" type="Node3D" parent="." node_paths=PackedStringArray("input_source")]
+script = ExtResource("5_bruh7")
+input_source = NodePath("../PlayerInput")
+enable_camera_rotation = false
+snap_turn_duration = 0.45
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig"]
+transform = Transform3D(1, 0, 0, 0, 0.7071067, 0.7071067, 0, -0.7071067, 0.7071067, 0, 8, 8)
+
+[editable path="Knight"]

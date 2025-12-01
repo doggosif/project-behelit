@@ -1,0 +1,70 @@
+[gd_scene load_steps=7 format=3 uid="uid://8u1eyn4yis2"]
+
+[ext_resource type="Script" uid="uid://bjaeqw54yob1h" path="res://Scripts/Combat/CombatSim.gd" id="1_4r6s1"]
+[ext_resource type="Script" uid="uid://1pauv0eq5vgx" path="res://Scripts/combat_scene.gd" id="1_mak3c"]
+[ext_resource type="Resource" uid="uid://bvu1dr0y738yi" path="res://Scripts/Data/player_combatant.tres" id="2_hrlpu"]
+[ext_resource type="Script" uid="uid://3x5xdbqy1rs2" path="res://Scripts/Combat/CombatUI.gd" id="4_0qy8o"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0qy8o"]
+font_size = 60
+
+[sub_resource type="LabelSettings" id="LabelSettings_tp2sa"]
+font_size = 60
+
+[node name="CombatScene" type="Node3D"]
+script = ExtResource("1_mak3c")
+
+[node name="Battlefield" type="Node3D" parent="."]
+
+[node name="BattleCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 1, 9, 8.682786)
+
+[node name="Sim" type="Node" parent="."]
+script = ExtResource("1_4r6s1")
+player_data = ExtResource("2_hrlpu")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Control" parent="UI" node_paths=PackedStringArray("sim")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+script = ExtResource("4_0qy8o")
+sim = NodePath("../../Sim")
+
+[node name="InfoLabel" type="Label" parent="UI/Panel"]
+layout_mode = 0
+offset_right = 212.0
+offset_bottom = 23.0
+
+[node name="PlayerHPLabel" type="Label" parent="UI/Panel"]
+layout_mode = 0
+offset_left = 142.0
+offset_top = 911.0
+offset_right = 521.0
+offset_bottom = 994.0
+text = "Player HP: 20"
+label_settings = SubResource("LabelSettings_0qy8o")
+
+[node name="EnemyHPLabel" type="Label" parent="UI/Panel"]
+layout_mode = 0
+offset_left = 929.0
+offset_top = 58.0
+offset_right = 1323.0
+offset_bottom = 141.0
+text = "Enemy HP: 15"
+label_settings = SubResource("LabelSettings_tp2sa")
+
+[node name="AttackButton" type="Button" parent="UI/Panel"]
+layout_mode = 0
+offset_left = 594.0
+offset_top = 939.0
+offset_right = 652.0
+offset_bottom = 970.0
+text = "Attack"
+
+[node name="EnemyList" type="VBoxContainer" parent="UI/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

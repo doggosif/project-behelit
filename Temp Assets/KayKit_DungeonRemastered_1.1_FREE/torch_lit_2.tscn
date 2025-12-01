@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://drv75lckcveih"]
+
+[ext_resource type="PackedScene" uid="uid://dtyrklfoqp8te" path="res://Temp Assets/KayKit_DungeonRemastered_1.1_FREE/Assets/gltf/torch_lit.gltf" id="1_w8oc8"]
+
+[node name="torch_lit2" instance=ExtResource("1_w8oc8")]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.786162, 0)
+light_color = Color(0.76515627, 0.44349846, 0.15543142, 1)
+light_energy = 4.664
+light_size = 0.725
+shadow_enabled = true
+omni_range = 12.089
