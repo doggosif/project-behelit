@@ -1,20 +1,38 @@
-[gd_scene load_steps=7 format=3 uid="uid://8u1eyn4yis2"]
+[gd_scene load_steps=8 format=3 uid="uid://8u1eyn4yis2"]
 
 [ext_resource type="Script" uid="uid://bjaeqw54yob1h" path="res://Scripts/Combat/CombatSim.gd" id="1_4r6s1"]
-[ext_resource type="Script" uid="uid://1pauv0eq5vgx" path="res://Scripts/combat_scene.gd" id="1_mak3c"]
-[ext_resource type="Resource" uid="uid://bvu1dr0y738yi" path="res://Scripts/Data/player_combatant.tres" id="2_hrlpu"]
+[ext_resource type="Script" uid="uid://1pauv0eq5vgx" path="res://Scripts/Combat/combat_scene.gd" id="1_mak3c"]
+[ext_resource type="Resource" uid="uid://bvu1dr0y738yi" path="res://Scripts/Data/Combatant/player_combatant.tres" id="2_hrlpu"]
 [ext_resource type="Script" uid="uid://3x5xdbqy1rs2" path="res://Scripts/Combat/CombatUI.gd" id="4_0qy8o"]
+[ext_resource type="Script" uid="uid://b0bonmxkas761" path="res://Scripts/EnemyListUi.gd" id="5_akg4l"]
+[ext_resource type="Script" uid="uid://bwfg5lsexag56" path="res://Scripts/SkillBarUI.gd" id="6_70oqa"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0qy8o"]
-font_size = 60
-
-[sub_resource type="LabelSettings" id="LabelSettings_tp2sa"]
 font_size = 60
 
 [node name="CombatScene" type="Node3D"]
 script = ExtResource("1_mak3c")
 
 [node name="Battlefield" type="Node3D" parent="."]
+
+[node name="PlayerRoot" type="Node3D" parent="Battlefield"]
+
+[node name="PlayerSpawn" type="Marker3D" parent="Battlefield"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -2.344454, 0.80568504, 3.66602)
+
+[node name="EnemiesRoot" type="Node3D" parent="Battlefield"]
+
+[node name="EnemySpawn0" type="Marker3D" parent="Battlefield"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.7054358, 0.69884586, -3.79988)
+
+[node name="EnemySpawn1" type="Marker3D" parent="Battlefield"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0108805, 0.69884586, -3.5704494)
+
+[node name="EnemySpawn2" type="Marker3D" parent="Battlefield"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8812742, 0.69884586, -3.6448717)
+
+[node name="EnemySpawn3" type="Marker3D" parent="Battlefield"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.6360173, 0.69884586, -3.6422653)
 
 [node name="BattleCamera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 1, 9, 8.682786)
@@ -47,24 +65,26 @@ offset_bottom = 994.0
 text = "Player HP: 20"
 label_settings = SubResource("LabelSettings_0qy8o")
 
-[node name="EnemyHPLabel" type="Label" parent="UI/Panel"]
+[node name="EnemyListUI" type="VBoxContainer" parent="UI/Panel"]
 layout_mode = 0
-offset_left = 929.0
-offset_top = 58.0
-offset_right = 1323.0
-offset_bottom = 141.0
-text = "Enemy HP: 15"
-label_settings = SubResource("LabelSettings_tp2sa")
+offset_left = 147.0
+offset_top = 118.0
+offset_right = 187.0
+offset_bottom = 158.0
+script = ExtResource("5_akg4l")
 
-[node name="AttackButton" type="Button" parent="UI/Panel"]
+[node name="SkillBarUI" type="HBoxContainer" parent="UI/Panel"]
 layout_mode = 0
-offset_left = 594.0
-offset_top = 939.0
-offset_right = 652.0
-offset_bottom = 970.0
-text = "Attack"
+offset_left = 772.0
+offset_top = 650.0
+offset_right = 812.0
+offset_bottom = 690.0
+script = ExtResource("6_70oqa")
 
-[node name="EnemyList" type="VBoxContainer" parent="UI/Panel"]
+[node name="PlayerButton" type="Button" parent="UI/Panel"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 643.0
+offset_top = 750.0
+offset_right = 736.0
+offset_bottom = 781.0
+text = "Use on self"

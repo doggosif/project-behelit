@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CombatantData" load_steps=6 format=3 uid="uid://bolaxdrpmj7hd"]
+
+[ext_resource type="PackedScene" uid="uid://dapr284r0e6so" path="res://scenes/Combat_Scene_Barbarian.tscn" id="1_opy87"]
+[ext_resource type="Script" uid="uid://cwrhyv1a4fmol" path="res://Scripts/Data/Combatant/CombatantData.gd" id="2_opy87"]
+[ext_resource type="Script" uid="uid://dab4o23p7moo1" path="res://Scripts/Data/Skills/SkillData.gd" id="3_wbccg"]
+[ext_resource type="Script" uid="uid://qednv7eo7bsi" path="res://Scripts/Data/Skills/DamageSkillData.gd" id="4_0g03x"]
+
+[sub_resource type="Resource" id="Resource_wbccg"]
+script = ExtResource("4_0g03x")
+animation_name = &"Player/Throw"
+metadata/_custom_type_script = "uid://qednv7eo7bsi"
+
+[resource]
+script = ExtResource("2_opy87")
+actor_scene = ExtResource("1_opy87")
+skills = Array[ExtResource("3_wbccg")]([SubResource("Resource_wbccg")])
+metadata/_custom_type_script = "uid://cwrhyv1a4fmol"

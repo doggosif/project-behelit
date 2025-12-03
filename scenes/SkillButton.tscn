@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://s7clgqnlsra"]
+
+[ext_resource type="Script" uid="uid://hhwmhssugh0s" path="res://Scripts/SkillButton.gd" id="1_bxu38"]
+[ext_resource type="Texture2D" uid="uid://kifbrps8hqni" path="res://1161-200.png" id="2_m854j"]
+
+[node name="Button" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Attack"
+script = ExtResource("1_bxu38")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_m854j")
+expand_mode = 1

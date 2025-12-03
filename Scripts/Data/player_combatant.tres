@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="CombatantData" load_steps=2 format=3 uid="uid://bvu1dr0y738yi"]
-
-[ext_resource type="Script" uid="uid://cwrhyv1a4fmol" path="res://Scripts/Data/CombatantData.gd" id="1_wg88p"]
-
-[resource]
-script = ExtResource("1_wg88p")
-max_hp = 100
-attack_power = 10
-metadata/_custom_type_script = "uid://cwrhyv1a4fmol"

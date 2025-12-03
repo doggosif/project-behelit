@@ -1,8 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dkyys7f1x4pgx"]
+[gd_scene load_steps=5 format=3 uid="uid://dkyys7f1x4pgx"]
 
 [ext_resource type="MeshLibrary" uid="uid://d4gtva016y774" path="res://protmeshlib.tres" id="1_ph542"]
-[ext_resource type="PackedScene" uid="uid://prpxcktr03gb" path="res://Temp Assets/KayKit_Adventurers_2.0_FREE/Characters/gltf/Knight.glb" id="2_obyvv"]
-[ext_resource type="PackedScene" uid="uid://bsxqt1q11axec" path="res://Temp Assets/KayKit_Adventurers_2.0_FREE/Characters/gltf/Barbarian.glb" id="3_8civq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sdwjn"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -12,10 +10,23 @@ ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 sky_material = SubResource("ProceduralSkyMaterial_sdwjn")
 
 [sub_resource type="Environment" id="Environment_kmtgi"]
-background_mode = 2
+background_color = Color(0.27022192, 0.27022192, 0.2702219, 1)
+background_energy_multiplier = 0.37
 sky = SubResource("Sky_t74xm")
+ambient_light_source = 2
+ambient_light_color = Color(0.31431612, 0.31431612, 0.3143161, 1)
 tonemap_mode = 2
+tonemap_exposure = 0.5
+tonemap_white = 1.49
 glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.18035725, 0.19956201, 0.22944489, 1)
+fog_light_energy = 0.79
+fog_density = 0.0452
+fog_sky_affect = 0.784
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0364
+volumetric_fog_albedo = Color(0.50534403, 0.5053441, 0.50534403, 1)
 
 [node name="BattlefieldDungeon" type="Node3D"]
 
@@ -25,6 +36,7 @@ environment = SubResource("Environment_kmtgi")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
+sky_mode = 2
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("1_ph542")
@@ -34,9 +46,14 @@ cell_center_z = false
 data = {
 "cells": PackedInt32Array(65533, 2, 19, 65535, 2, 19, 1, 2, 19, 3, 2, 19, 65533, 0, 19, 65535, 0, 19, 1, 0, 19, 3, 0, 19, 65533, 65534, 19, 65535, 65534, 19, 1, 65534, 19, 3, 65534, 19)
 }
+metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="Knight" parent="." instance=ExtResource("2_obyvv")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -2.507329, 0.6078763, 3.8746824)
-
-[node name="Barbarian" parent="." instance=ExtResource("3_8civq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.478424, 0.44365692, -4.2647724)
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(0.9900261, -0.11682147, -0.07874667, 0.09820705, 0.17149143, 0.9802786, -0.1010132, -0.9782349, 0.1812537, -0.23296356, 9.137138, -0.8674021)
+light_color = Color(0.8195875, 0.40236264, 0.055456944, 1)
+light_energy = 0.1
+light_volumetric_fog_energy = 0.0
+light_specular = 10.058
+spot_range = 11.866
+spot_attenuation = -1.77
+spot_angle = 71.49

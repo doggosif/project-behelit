@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3jjdfyyg6f55"]
+
+[ext_resource type="Script" uid="uid://dbwcf2mo00s7d" path="res://Scripts/EnemyRow.gd" id="1_7gf26"]
+[ext_resource type="Texture2D" uid="uid://kifbrps8hqni" path="res://1161-200.png" id="2_yuwx1"]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_7gf26")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_yuwx1")
+
+[node name="HPLabel" type="Label" parent="."]
+layout_mode = 2
+
+[node name="AttackButton" type="Button" parent="."]
+layout_mode = 2

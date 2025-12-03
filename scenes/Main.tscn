@@ -8,9 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://b1l7ccio5vckm" path="res://Temp Assets/torch_lit.tscn" id="9_q8u5g"]
 [ext_resource type="PackedScene" uid="uid://13okyi3jupt1" path="res://Temp Assets/KayKit_Prototype_Bits_1.1_FREE/Assets/gltf/target_wall_small.gltf" id="10_3p2gp"]
 [ext_resource type="Script" uid="uid://bm5kw0mu06xg0" path="res://Scripts/open_door.gd" id="10_lhr70"]
-[ext_resource type="Script" uid="uid://cxp4x33bjphby" path="res://Scripts/enemy_encounter_trigger.gd" id="11_bjd11"]
+[ext_resource type="Script" uid="uid://cxp4x33bjphby" path="res://Scripts/Combat/enemy_encounter_trigger.gd" id="11_bjd11"]
 [ext_resource type="PackedScene" uid="uid://d0gk21kkv6g00" path="res://Temp Assets/KayKit_Prototype_Bits_1.1_FREE/Assets/gltf/target_small.gltf" id="11_cvmbd"]
-[ext_resource type="Resource" uid="uid://ds33a2h283m60" path="res://Scripts/Data/encounter_big_dude.tres" id="12_bjd11"]
+[ext_resource type="Resource" uid="uid://ds33a2h283m60" path="res://Scripts/Data/Encounter/encounter_big_dude.tres" id="12_bjd11"]
 [ext_resource type="PackedScene" uid="uid://bjjy5yeyvkq55" path="res://Temp Assets/KayKit_Prototype_Bits_1.1_FREE/Assets/gltf/target.gltf" id="12_ft6cd"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_elqb8"]

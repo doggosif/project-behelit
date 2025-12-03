@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="CombatantData" load_steps=11 format=3 uid="uid://bvu1dr0y738yi"]
+
+[ext_resource type="PackedScene" uid="uid://bmhki68pcutu8" path="res://scenes/Combat_Scene_Player.tscn" id="1_qfeuk"]
+[ext_resource type="Script" uid="uid://cwrhyv1a4fmol" path="res://Scripts/Data/Combatant/CombatantData.gd" id="2_wh6e1"]
+[ext_resource type="Script" uid="uid://dab4o23p7moo1" path="res://Scripts/Data/Skills/SkillData.gd" id="3_extxc"]
+[ext_resource type="Script" uid="uid://qednv7eo7bsi" path="res://Scripts/Data/Skills/DamageSkillData.gd" id="4_u1tvb"]
+[ext_resource type="Script" uid="uid://b6p0xnfu1u31t" path="res://Scripts/Data/Skills/HealSkillData.gd" id="5_5ighi"]
+[ext_resource type="Script" uid="uid://crwyi6180hvvg" path="res://Scripts/Data/Skills/DefendSkillData.gd" id="6_oiwwo"]
+
+[sub_resource type="Resource" id="Resource_5ighi"]
+script = ExtResource("4_u1tvb")
+id = &"attack"
+display_name = "Attack"
+description = "Attack one enemy"
+animation_name = &"Player/Throw"
+metadata/_custom_type_script = "uid://qednv7eo7bsi"
+
+[sub_resource type="Resource" id="Resource_oiwwo"]
+script = ExtResource("4_u1tvb")
+target_type = 1
+power = 2
+id = &"sweep"
+display_name = "Sweep"
+description = "Attack all enemies"
+metadata/_custom_type_script = "uid://qednv7eo7bsi"
+
+[sub_resource type="Resource" id="Resource_fbwqs"]
+script = ExtResource("5_5ighi")
+id = &"heal"
+display_name = "Heal"
+description = "Heal yourself"
+metadata/_custom_type_script = "uid://b6p0xnfu1u31t"
+
+[sub_resource type="Resource" id="Resource_5gfjj"]
+script = ExtResource("6_oiwwo")
+id = &"defend"
+display_name = "Defend"
+description = "Take less damage next turn"
+metadata/_custom_type_script = "uid://crwyi6180hvvg"
+
+[resource]
+script = ExtResource("2_wh6e1")
+display_name = "Protagonist"
+max_hp = 100
+attack_power = 10
+actor_scene = ExtResource("1_qfeuk")
+skills = Array[ExtResource("3_extxc")]([SubResource("Resource_5ighi"), SubResource("Resource_oiwwo"), SubResource("Resource_fbwqs"), SubResource("Resource_5gfjj")])
+metadata/_custom_type_script = "uid://cwrhyv1a4fmol"

@@ -28,7 +28,6 @@ func _try_interact() -> void:
 	#else:
 		#print("Nothing interactable found up the chain.")
 
-
 func _find_interactable(start: Node) -> Node:
 	var current: Node = start
 	while current:
