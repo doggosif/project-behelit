@@ -12,6 +12,7 @@ signal combat_finished(result: CombatResult)
 var _player_actor: Node3D = null
 var _enemy_actors: Array[Node3D] = []
 var _last_enemies_hp: Array[int] = []
+var _last_player_hp: int = -1
 
 var _is_player_casting: bool = false
 var _pending_skill_index: int = -1
@@ -20,7 +21,8 @@ var _pending_target_index: int = -1
 func setup(encounter: EncounterData) -> void:
 	# Reset cached HP state
 	_last_enemies_hp.clear()
-
+	_last_player_hp = -1
+	
 	# 1) Battlefield visuals
 	if encounter.battlefield_scene:
 		var bf := encounter.battlefield_scene.instantiate()
@@ -100,7 +102,17 @@ func _spawn_enemy_actors(enemies: Array[CombatantData]) -> void:
 
 
 func _on_hp_changed(player_hp: int, enemies_hp: Array[int]) -> void:
-	# First call, just cache values
+	# Player HP feedback
+	if _last_player_hp == -1:
+		_last_player_hp = player_hp
+	else:
+		if player_hp < _last_player_hp:
+			_on_player_hit()
+		if player_hp <= 0 and _last_player_hp > 0:
+			_on_player_died()
+		_last_player_hp = player_hp
+
+	# Enemy HP feedback
 	if _last_enemies_hp.is_empty():
 		_last_enemies_hp = enemies_hp.duplicate()
 		return
@@ -118,37 +130,38 @@ func _on_hp_changed(player_hp: int, enemies_hp: Array[int]) -> void:
 
 
 func _on_enemy_died(index: int) -> void:
-	if index < 0 or index >= _enemy_actors.size():
+	var ca := _get_enemy_combat_actor(index)
+	if ca == null:
 		return
-	var actor := _enemy_actors[index]
-	if not is_instance_valid(actor):
-		return
-
-	var combat_actor := actor.get_node_or_null(".") as CombatActor
-	if combat_actor:
-		combat_actor.play_death_feedback()
+	ca.play_death_feedback()
 
 
 func _on_enemy_hit(index: int) -> void:
-	if index < 0 or index >= _enemy_actors.size():
+	var ca := _get_enemy_combat_actor(index)
+	if ca == null:
 		return
+	ca.play_hit_feedback()
 
-	var actor := _enemy_actors[index]
-	if not is_instance_valid(actor):
+func _on_player_hit() -> void:
+	var ca := _get_player_combat_actor()
+	if ca == null:
 		return
+	ca.play_hit_feedback()
 
 
 func _on_sim_combat_finished(result: CombatResult) -> void:
-	# Optional: do something on player death visually
-	if not result.player_survived:
-		_on_player_died()
-
 	combat_finished.emit(result)
 
 
 func _on_player_died() -> void:
-	if _player_actor and is_instance_valid(_player_actor):
-		_player_actor.visible = false
+	var ca := _get_player_combat_actor()
+	if ca == null:
+		# fallback: at least hide the node
+		if _player_actor and is_instance_valid(_player_actor):
+			_player_actor.visible = false
+		return
+
+	ca.play_death_feedback()
 
 func _on_skill_requested(skill_index: int, target_index: int) -> void:
 	# Do not allow player skills when it's not their turn
@@ -191,8 +204,16 @@ func _on_skill_requested(skill_index: int, target_index: int) -> void:
 func _get_player_combat_actor() -> CombatActor:
 	if _player_actor == null or not is_instance_valid(_player_actor):
 		return null
-	return _player_actor as CombatActor
 
+	var ca := _player_actor as CombatActor
+	if ca != null:
+		return ca
+
+	for child in _player_actor.get_children():
+		if child is CombatActor:
+			return child
+
+	return null
 
 func _play_player_skill_anim(skill: SkillData) -> void:
 	var actor := _get_player_combat_actor()
@@ -220,21 +241,27 @@ func _start_cast_timer(delay: float) -> void:
 	_pending_skill_index = -1
 	_pending_target_index = -1
 
-	sim.player_use_skill_on_target(skill_index, target_index)
-
-
 	# Apply the skill effects after the delay
 	sim.player_use_skill_on_target(skill_index, target_index)
 
-func _get_enemy_combat_actor(enemy_index: int) -> CombatActor:
-	if enemy_index < 0 or enemy_index >= _enemy_actors.size():
+func _get_enemy_combat_actor(index: int) -> CombatActor:
+	if index < 0 or index >= _enemy_actors.size():
 		return null
 
-	var actor := _enemy_actors[enemy_index]
-	if actor == null or not is_instance_valid(actor):
+	var node := _enemy_actors[index]
+	if node == null or not is_instance_valid(node):
 		return null
 
-	return actor as CombatActor
+	var ca := node as CombatActor
+	if ca != null:
+		return ca
+
+	# fallback: look for a child CombatActor, if you ever nest it
+	for child in node.get_children():
+		if child is CombatActor:
+			return child
+
+	return null
 
 func _on_enemy_action_started(enemy_index: int, skill: SkillData) -> void:
 	var actor := _get_enemy_combat_actor(enemy_index)

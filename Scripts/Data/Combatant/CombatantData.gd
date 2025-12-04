@@ -3,9 +3,11 @@ class_name CombatantData
 
 @export var display_name: String = "Thing"
 @export var max_hp: int = 10
-@export var attack_power: int = 3    # you can keep this for now or deprecate later
+@export var attack_power: int = 3
+@export var speed: int = 10
 
 @export var actor_scene: PackedScene
-
-# NEW: list of skills this combatant can use
 @export var skills: Array[SkillData] = []
+
+# NEW: which AI brain this combatant uses
+@export var ai_brain_id: StringName = "default"

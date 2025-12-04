@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="StatusEffectData" load_steps=2 format=3 uid="uid://bp0q3sm42exqj"]
+
+[ext_resource type="Script" uid="uid://dgcele1gmdv2" path="res://Scripts/Data/Status Effects/StatusEffectData.gd" id="1_ipov5"]
+
+[resource]
+script = ExtResource("1_ipov5")
+id = &"guard"
+display_name = "Guard"
+max_stacks = 3
+defense_multiplier_per_stack = 0.5
+metadata/_custom_type_script = "uid://dgcele1gmdv2"

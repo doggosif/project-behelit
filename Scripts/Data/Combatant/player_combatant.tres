@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="CombatantData" load_steps=11 format=3 uid="uid://bvu1dr0y738yi"]
+[gd_resource type="Resource" script_class="CombatantData" load_steps=13 format=3 uid="uid://bvu1dr0y738yi"]
 
 [ext_resource type="PackedScene" uid="uid://bmhki68pcutu8" path="res://scenes/Combat_Scene_Player.tscn" id="1_qfeuk"]
 [ext_resource type="Script" uid="uid://cwrhyv1a4fmol" path="res://Scripts/Data/Combatant/CombatantData.gd" id="2_wh6e1"]
 [ext_resource type="Script" uid="uid://dab4o23p7moo1" path="res://Scripts/Data/Skills/SkillData.gd" id="3_extxc"]
 [ext_resource type="Script" uid="uid://qednv7eo7bsi" path="res://Scripts/Data/Skills/DamageSkillData.gd" id="4_u1tvb"]
 [ext_resource type="Script" uid="uid://b6p0xnfu1u31t" path="res://Scripts/Data/Skills/HealSkillData.gd" id="5_5ighi"]
-[ext_resource type="Script" uid="uid://crwyi6180hvvg" path="res://Scripts/Data/Skills/DefendSkillData.gd" id="6_oiwwo"]
+[ext_resource type="Resource" uid="uid://cwtqkxnbvpnje" path="res://Scripts/Data/Status Effects/PoisonEffect.tres" id="5_u1tvb"]
+[ext_resource type="Resource" uid="uid://bp0q3sm42exqj" path="res://Scripts/Data/Status Effects/Guard.tres" id="7_extxc"]
+[ext_resource type="Script" uid="uid://cxux5lpyf4eag" path="res://Scripts/Data/Skills/StatusSkillData.gd" id="7_u1tvb"]
 
 [sub_resource type="Resource" id="Resource_5ighi"]
 script = ExtResource("4_u1tvb")
@@ -22,6 +24,7 @@ power = 2
 id = &"sweep"
 display_name = "Sweep"
 description = "Attack all enemies"
+status_to_apply = ExtResource("5_u1tvb")
 metadata/_custom_type_script = "uid://qednv7eo7bsi"
 
 [sub_resource type="Resource" id="Resource_fbwqs"]
@@ -32,11 +35,11 @@ description = "Heal yourself"
 metadata/_custom_type_script = "uid://b6p0xnfu1u31t"
 
 [sub_resource type="Resource" id="Resource_5gfjj"]
-script = ExtResource("6_oiwwo")
+script = ExtResource("7_u1tvb")
 id = &"defend"
 display_name = "Defend"
-description = "Take less damage next turn"
-metadata/_custom_type_script = "uid://crwyi6180hvvg"
+status_to_apply = ExtResource("7_extxc")
+metadata/_custom_type_script = "uid://cxux5lpyf4eag"
 
 [resource]
 script = ExtResource("2_wh6e1")

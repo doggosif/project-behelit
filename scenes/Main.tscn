@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://dmd74p61dqddk"]
+[gd_scene load_steps=31 format=4 uid="uid://dmd74p61dqddk"]
 
 [ext_resource type="PackedScene" uid="uid://53oqojpirrc8" path="res://scenes/Player.tscn" id="1_jlsqs"]
 [ext_resource type="MeshLibrary" uid="uid://d4gtva016y774" path="res://protmeshlib.tres" id="6_c01mt"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://d0gk21kkv6g00" path="res://Temp Assets/KayKit_Prototype_Bits_1.1_FREE/Assets/gltf/target_small.gltf" id="11_cvmbd"]
 [ext_resource type="Resource" uid="uid://ds33a2h283m60" path="res://Scripts/Data/Encounter/encounter_big_dude.tres" id="12_bjd11"]
 [ext_resource type="PackedScene" uid="uid://bjjy5yeyvkq55" path="res://Temp Assets/KayKit_Prototype_Bits_1.1_FREE/Assets/gltf/target.gltf" id="12_ft6cd"]
+[ext_resource type="Resource" uid="uid://cuf21mt7wixmd" path="res://Scripts/Data/Encounter/encounter_basic_enemy.tres" id="13_qmy6f"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_elqb8"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -279,6 +280,19 @@ script = ExtResource("11_bjd11")
 encounter_data = ExtResource("12_bjd11")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy Test/DetectionArea"]
+shape = SubResource("CapsuleShape3D_3p2gp")
+
+[node name="Enemy Test2" type="Node3D" parent="." groups=["enemy"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.822069, 1.3857837, 2.3856096)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Enemy Test2"]
+mesh = SubResource("CapsuleMesh_mwfav")
+
+[node name="DetectionArea" type="Area3D" parent="Enemy Test2"]
+script = ExtResource("11_bjd11")
+encounter_data = ExtResource("13_qmy6f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy Test2/DetectionArea"]
 shape = SubResource("CapsuleShape3D_3p2gp")
 
 [editable path="Player"]

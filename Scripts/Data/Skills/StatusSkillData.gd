@@ -1,5 +1,4 @@
 extends SkillData
-class_name DefendSkillData
+class_name StatusSkillData
 
 @export var target_type: TargetType = TargetType.SELF
-@export var defense_factor: float = 0.5

@@ -4,15 +4,12 @@ class_name CombatActor
 @export var animation_player: AnimationPlayer
 @export var fallback_animation: StringName = "attack"
 
-func play_hit_feedback() -> void:
-	var t := transform
-	t.basis = t.basis.scaled(Vector3(1.1, 1.1, 1.1))
-	transform = t
+var _is_dead: bool = false
 
-func play_death_feedback() -> void:
-	visible = false
 
 func play_skill(animation_name: StringName) -> void:
+	if _is_dead:
+		return
 	if animation_player == null:
 		return
 
@@ -22,6 +19,7 @@ func play_skill(animation_name: StringName) -> void:
 
 	if anim_to_play != "":
 		animation_player.play(anim_to_play)
+
 
 func get_skill_anim_length(animation_name: StringName) -> float:
 	if animation_player == null:
@@ -42,3 +40,22 @@ func get_skill_anim_length(animation_name: StringName) -> float:
 		return 0.0
 
 	return anim.length
+
+
+func play_hit_feedback() -> void:
+	if _is_dead:
+		return
+
+	# Simple placeholder hit reaction.
+	var t := transform
+	t.origin.y += 0.05
+	transform = t
+
+
+func play_death_feedback() -> void:
+	if _is_dead:
+		return
+
+	_is_dead = true
+	visible = false
+	# Later: swap this for a death animation / fade / particle, etc.

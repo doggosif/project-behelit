@@ -115,8 +115,8 @@ func _on_enemy_clicked(index: int) -> void:
 		target_type = (skill as DamageSkillData).target_type
 	elif skill is HealSkillData:
 		target_type = (skill as HealSkillData).target_type
-	elif skill is DefendSkillData:
-		target_type = (skill as DefendSkillData).target_type
+	elif skill is StatusSkillData:
+		target_type = (skill as StatusSkillData).target_type
 	else:
 		return
 
@@ -145,8 +145,8 @@ func _on_player_button_pressed() -> void:
 		target_type = (skill as DamageSkillData).target_type
 	elif skill is HealSkillData:
 		target_type = (skill as HealSkillData).target_type
-	elif skill is DefendSkillData:
-		target_type = (skill as DefendSkillData).target_type
+	elif skill is StatusSkillData:
+		target_type = (skill as StatusSkillData).target_type
 	else:
 		return
 
